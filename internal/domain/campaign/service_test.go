@@ -47,13 +47,6 @@ func Test_Create_ValidateDomainError(t *testing.T) {
 }
 
 func Test_Create_Campaign_Save_On_Db(t *testing.T) {
-	// assert := assert.New(t)
-	//passando DTO
-	newCampaign := contract.NewCampaign{
-		Name:    "Nome da campanha",
-		Content: "Body",
-		Emails:  []string{"teste@teste.com", "teste2@email.com"},
-	}
 	repositoryMock := new(repositoryMock)
 
 	repositoryMock.On("Save", mock.MatchedBy(func(campaign *Campaign) bool {
