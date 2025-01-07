@@ -2,6 +2,7 @@ package campaign
 
 import (
 	"batch-email/internal/contract"
+	"batch-email/internal/internalErrors"
 )
 
 type Service struct {
@@ -18,7 +19,7 @@ func (s *Service) Create(newCampaign contract.NewCampaign) (string, error) {
 	// validando se houve erro no mock para salvar no "BD"
 	err = s.Repository.Save(campaign)
 	if err != nil {
-		return "", err
+		return "", internalErrors.ErrInternal
 	}
 
 	// não houve erro, campanha é criada e o ID da campanha é retornado
