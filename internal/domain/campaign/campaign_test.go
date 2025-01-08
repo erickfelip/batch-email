@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/jaswdr/faker"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -11,6 +12,7 @@ var (
 	name     = "Campaign X"
 	content  = "Body"
 	contacts = []string{"email1@e.com", "email2@e.com"}
+	fake     = faker.New()
 )
 
 func Test_CreateNewCampaign(t *testing.T) {
@@ -49,7 +51,7 @@ func Test_NewCampaign_MustValidateNameMin(t *testing.T) {
 func Test_NewCampaign_MustValidateNameMax(t *testing.T) {
 	assert := assert.New(t)
 
-	_, error := NewCampaign("9128312380192831293001283", content, contacts)
+	_, error := NewCampaign(fake.Lorem().Text(25), content, contacts)
 
 	assert.Equal("name is required with max 24", error.Error())
 
