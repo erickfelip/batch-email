@@ -46,6 +46,15 @@ func Test_NewCampaign_MustValidateNameMin(t *testing.T) {
 
 }
 
+func Test_NewCampaign_MustValidateNameMax(t *testing.T) {
+	assert := assert.New(t)
+
+	_, error := NewCampaign("9128312380192831293001283", content, contacts)
+
+	assert.Equal("name is required with max 24", error.Error())
+
+}
+
 func Test_NewCampaign_MustValidateContent(t *testing.T) {
 	assert := assert.New(t)
 
