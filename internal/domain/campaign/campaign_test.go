@@ -10,7 +10,7 @@ import (
 
 var (
 	name     = "Campaign X"
-	content  = "Body"
+	content  = "12345"
 	contacts = []string{"email1@e.com", "email2@e.com"}
 	fake     = faker.New()
 )
@@ -57,20 +57,38 @@ func Test_NewCampaign_MustValidateNameMax(t *testing.T) {
 
 }
 
-func Test_NewCampaign_MustValidateContent(t *testing.T) {
+func Test_NewCampaign_MustValidateContentMin(t *testing.T) {
 	assert := assert.New(t)
 
-	_, error := NewCampaign(name, "", contacts)
+	_, error := NewCampaign(name, fake.Lorem().Text(4), contacts)
 
-	assert.Equal("content is required", error.Error())
+	assert.Equal("content is required with min 5", error.Error())
+
+}
+
+func Test_NewCampaign_MustValidateContentMax(t *testing.T) {
+	assert := assert.New(t)
+
+	_, error := NewCampaign(name, fake.Lorem().Text(1040), contacts)
+
+	assert.Equal("content is required with max 1024", error.Error())
+
+}
+
+func Test_NewCampaign_MustValidateContactsMin(t *testing.T) {
+	assert := assert.New(t)
+
+	_, error := NewCampaign(name, content, nil)
+
+	assert.Equal("contacts is required with min 1", error.Error())
 
 }
 
 func Test_NewCampaign_MustValidateContacts(t *testing.T) {
 	assert := assert.New(t)
 
-	_, error := NewCampaign(name, content, []string{})
+	_, error := NewCampaign(name, content, []string{"email_invalid"})
 
-	assert.Equal("contacts is required", error.Error())
+	assert.Equal("email is invalid", error.Error())
 
 }
