@@ -37,12 +37,12 @@ func Test_NewCampaign_CreatedOnMustBeNow(t *testing.T) {
 	assert.Greater(campaign.CreatedOn, now)
 }
 
-func Test_NewCampaign_MustValidateName(t *testing.T) {
+func Test_NewCampaign_MustValidateNameMin(t *testing.T) {
 	assert := assert.New(t)
 
 	_, error := NewCampaign("", content, contacts)
 
-	assert.Equal("name is required", error.Error())
+	assert.Equal("name is required with min 5", error.Error())
 
 }
 
