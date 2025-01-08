@@ -2,7 +2,7 @@ package campaign
 
 import (
 	"batch-email/internal/contract"
-	"batch-email/internal/internalErrors"
+	internalErrors "batch-email/internal/internal-errors"
 	"errors"
 	"testing"
 
