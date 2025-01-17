@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -23,6 +24,13 @@ func main() {
 	r.Get("/{productName}", func(w http.ResponseWriter, r *http.Request) {
 		param := chi.URLParam(r, "productName")
 		w.Write([]byte(param))
+	})
+
+	r.Get("/json", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-type", "application/json")
+		obj := map[string]string{"message": "success"}
+		b, _ := json.Marshal(obj)
+		w.Write(b)
 	})
 
 	http.ListenAndServe(":3000", r)
