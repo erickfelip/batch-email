@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
 )
 
@@ -12,17 +13,10 @@ type product struct {
 	Name string
 }
 
-type myHandler struct{}
-
-func (m myHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("handler test"))
-}
-
 func main() {
 	r := chi.NewRouter()
-
-	m := myHandler{}
-	r.Handle("/handler", m)
+	r.Use(middleware.Logger)
+	r.Use(customMiddleware)
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		product := r.URL.Query().Get("product")
@@ -53,4 +47,13 @@ func main() {
 	})
 
 	http.ListenAndServe(":3000", r)
+}
+
+// next = cadeia de middlewares
+func customMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		println("antes da chamada")
+		next.ServeHTTP(w, r)
+		println("depois da chamada")
+	})
 }
