@@ -12,8 +12,17 @@ type product struct {
 	Name string
 }
 
+type myHandler struct{}
+
+func (m myHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("handler test"))
+}
+
 func main() {
 	r := chi.NewRouter()
+
+	m := myHandler{}
+	r.Handle("/handler", m)
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		product := r.URL.Query().Get("product")
