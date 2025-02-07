@@ -17,3 +17,7 @@ func (c *CampaignRepository) Save(campaign *campaign.Campaign) error {
 	// force error
 	// return errors.New("error")
 }
+
+func (c *CampaignRepository) Get() []campaign.Campaign {
+	return c.campaigns
+}
