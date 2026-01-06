@@ -3,9 +3,9 @@
 POST http://localhost:3000/campaigns
 
 {
-    "name": "mouse 3",
-    "content": "change password",
-    "emails": ["teste@teste.com.br"]
+    "name": "nova campanha 1333",
+    "content": "nova campanha de teste para empresa X",
+    "emails": ["teste@teste.com.br", "testefulano@email.com"]
 }
 
 ###
