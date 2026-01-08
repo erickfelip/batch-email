@@ -1,7 +1,7 @@
 # Batch-email
 
 ### Domain:
-Consiste em um sistema de centralizador de envio de e-mails em lote através de campanhas.
+Consiste em um sistema centralizador de envio de e-mails em lote através de campanhas.
 
 #### Features:
 - Endpoint para envio dos e-mails em lote com os contatos
